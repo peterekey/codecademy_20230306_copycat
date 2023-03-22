@@ -1,39 +1,43 @@
 import React from 'react';
+import CopyCat from '../components/CopyCat';
+import copycatPic from '../components/copycat.png';
+import quietcatPic from '../components/quietcat.png';
 
 const images = {
-  copycat: 'https://content.codecademy.com/courses/React/react_photo_copycat.png',
-  quietcat: 'https://content.codecademy.com/courses/React/react_photo_quietcat.png'
+  copycat: copycatPic,
+  quietcat: quietcatPic
 };
 
 
-export default class CopyCat extends React.Component {
+export default class CopyCatContainer extends React.Component {
     constructor(props) {
     super(props);
 
     this.state = { 
-      copying: true
+      copying: true,
+      input: ''
     };
 
     this.toggleTape = this.toggleTape.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
   toggleTape() {
     this.setState({copying: !this.state.copying})
   }
+
+  handleChange(e) {
+    this.setState({input: e.target.value})
+  }
   
   render() {
-    const copying = this.state.copying;
-    const toggleTape = this.toggleTape
-    
-    return (
-      <div>
-        <h1>Copy Cat</h1>
-        <img 
-          alt='cat'
-          src={copying ? images.copycat : images.quietcat}
-          onClick={toggleTape}
-        />
-      </div>
-    );
+    return (<CopyCat 
+      copying={this.state.copying}
+      toggleTape={this.toggleTape}
+      images={images}
+      input={this.state.input}
+      onChange={this.handleChange}
+      name='Landa'
+    />)
   };
 }
